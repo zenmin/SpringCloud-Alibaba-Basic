@@ -6,7 +6,6 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.2.0.RELEASE</version>
-
     </parent>
     <groupId>com.zm</groupId>
     <artifactId>zm-parent</artifactId>
@@ -19,7 +18,6 @@
     <modules>
         <module>zm-db-parent</module>
         <module>zm-common</module>
-        <module>zm-gateway</module>
         <module>zm-web</module>
         <module>zm-goods</module>
         <module>zm-system</module>
@@ -33,6 +31,8 @@
         <druid.version>1.1.14</druid.version>
         <guava.version>26.0-jre</guava.version>
         <fastjson.version>1.2.56</fastjson.version>
+        <mybatis.plus.boot.version>3.2.0</mybatis.plus.boot.version>
+        <swagger.starter.version>1.8.0.RELEASE</swagger.starter.version>
     </properties>
 
     <dependencies>
@@ -116,7 +116,7 @@
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>3.2.0</version>
+                <version>${mybatis.plus.boot.version}</version>
             </dependency>
 
             <dependency>
@@ -134,16 +134,15 @@
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-generator</artifactId>
-                <version>3.2.0</version>
+                <version>${mybatis.plus.boot.version}</version>
             </dependency>
 
             <!--swagger-->
             <dependency>
                 <groupId>com.spring4all</groupId>
                 <artifactId>swagger-spring-boot-starter</artifactId>
-                <version>1.8.0.RELEASE</version>
+                <version>${swagger.starter.version}</version>
             </dependency>
-
         </dependencies>
     </dependencyManagement>
 

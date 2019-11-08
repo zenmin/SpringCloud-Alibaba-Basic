@@ -1,18 +1,11 @@
 package com.zm.goods.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zm.goods.bean.ItemsQo;
 import com.zm.goods.service.OpenGoods;
 import com.zm.goods.service.ItemsService;
 import com.zm.zmcommon.common.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.Map;
 
 
 /**

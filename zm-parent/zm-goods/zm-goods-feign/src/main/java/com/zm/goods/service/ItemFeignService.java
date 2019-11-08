@@ -7,6 +7,6 @@ import org.springframework.cloud.openfeign.FeignClient;
  * @Author ZengMin
  * @Date 2019/11/7 22:09
  */
-@FeignClient("ZM-GOODS")
+@FeignClient("ZM-GATEWAY")
 public interface ItemFeignService extends OpenGoods {
 }

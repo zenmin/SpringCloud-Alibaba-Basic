@@ -8,6 +8,6 @@ import org.springframework.cloud.openfeign.FeignClient;
  * @Author ZengMin
  * @Date 2019/11/7 20:38
  */
-@FeignClient("ZM-SYSTEM")
+@FeignClient("ZM-GATEWAY")
 public interface UserFeignService extends OpenSystem {
 }
