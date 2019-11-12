@@ -30,9 +30,9 @@ spring:
         - id: ZM-SYSTEM
           uri: lb://ZM-SYSTEM
           predicates:
-            - Path=/api/system/**
+            - Path=/api/user/**
           filters:
-            - StripPrefix=1
+#            - StripPrefix=1
 
 server:
   port: 8000
