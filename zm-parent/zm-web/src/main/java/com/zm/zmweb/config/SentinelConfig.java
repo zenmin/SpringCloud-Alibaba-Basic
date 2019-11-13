@@ -1,10 +1,10 @@
-package com.zm.goods.config;
+package com.zm.zmweb.config;
 
 import com.alibaba.csp.sentinel.annotation.aspectj.SentinelResourceAspect;
 import com.alibaba.csp.sentinel.slots.block.RuleConstant;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowRule;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowRuleManager;
-import com.zm.goods.controller.OpenGoodsController;
+import com.zm.zmweb.controller.GoodsFeignController;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,7 +37,7 @@ public class SentinelConfig {
     @PostConstruct
     private void initFlowQpsRule() {
         List<FlowRule> rules = new ArrayList<>();
-        FlowRule rule = new FlowRule(OpenGoodsController.GOODS_LIMIT_KEY);
+        FlowRule rule = new FlowRule(GoodsFeignController.GOODS_LIMIT_KEY);
         // set limit qps to 3
         rule.setCount(3);
         rule.setGrade(RuleConstant.FLOW_GRADE_QPS);

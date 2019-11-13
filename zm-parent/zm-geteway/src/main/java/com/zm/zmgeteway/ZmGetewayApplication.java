@@ -11,5 +11,4 @@ public class ZmGetewayApplication {
     public static void main(String[] args) {
         SpringApplication.run(ZmGetewayApplication.class, args);
     }
-
 }
