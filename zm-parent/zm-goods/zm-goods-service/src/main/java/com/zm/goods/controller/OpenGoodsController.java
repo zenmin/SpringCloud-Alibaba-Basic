@@ -4,7 +4,9 @@ import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.zm.goods.bean.ItemsQo;
 import com.zm.goods.service.OpenGoods;
 import com.zm.goods.service.ItemsService;
+import com.zm.zmcommon.common.CommonException;
 import com.zm.zmcommon.common.ResponseEntity;
+import com.zm.zmcommon.common.constant.DefinedCode;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -18,6 +20,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @RestController
 public class OpenGoodsController implements OpenGoods {
+
+    public static final String GOODS_LIMIT_KEY = "GOODS-LISTBYPAGE";
 
     @Autowired
     ItemsService itemsService;
@@ -47,12 +51,15 @@ public class OpenGoodsController implements OpenGoods {
      * 查全部 可带条件分页
      * Sentinel starter 默认为所有的 HTTP 服务提供了限流埋点，如果只想对 HTTP 服务进行限流，那么只需要引入依赖，无需修改代码。
      * 自定义埋点
-     * 如果需要对某个特定的方法进行限流或降级，可以通过 @SentinelResource 注解来完成限流的埋点，示例代码如下：
+     * 如果需要对某个特定的方法进行限流或降级，可以通过 @SentinelResource 注解来完成限流的埋点
+     * https://github.com/alibaba/Sentinel/wiki/%E6%B3%A8%E8%A7%A3%E6%94%AF%E6%8C%81
+     *
+     *
      *
      * @return
      */
     @Override
-    @SentinelResource("GOODS-LISTBYPAGE")
+    @SentinelResource(value = GOODS_LIMIT_KEY,fallback = "qpsOverFallBack")
     public ResponseEntity listByPage(ItemsQo itemsQo) {
         return ResponseEntity.success(itemsService.listByPage(itemsQo));
     }
@@ -76,6 +83,15 @@ public class OpenGoodsController implements OpenGoods {
     @Override
     public ResponseEntity delete(String ids) {
         return ResponseEntity.success(itemsService.delete(ids));
+    }
+
+    /**
+     * 限流fallback方法  参数要与原方法一致
+     * @param itemsQo
+     * @return
+     */
+    public ResponseEntity qpsOverFallBack(ItemsQo itemsQo) {
+        return ResponseEntity.error("出错了，请稍后再试");
     }
 
 

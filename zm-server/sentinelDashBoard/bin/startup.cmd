@@ -1,0 +1,1 @@
+java -jar -Xms256m -Xmx256m -Xmn128m ../app/sentinel-dashboard.jar
