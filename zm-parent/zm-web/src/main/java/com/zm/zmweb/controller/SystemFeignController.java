@@ -77,4 +77,16 @@ public class SystemFeignController {
     }
 
 
+    /**
+     * 根据id删除   多个用,隔开
+     *
+     * @param msg
+     * @return
+     */
+    @PostMapping("/send")
+    public ResponseEntity send(String msg) {
+        return userFeignService.send(msg);
+    }
+
+
 }

@@ -1,0 +1,1 @@
+java -jar -Xms128m -Xmx256m rocketmq-console-ng-1.0.1.jar

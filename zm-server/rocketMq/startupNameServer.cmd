@@ -1,0 +1,1 @@
+bin/mqnamesrv.cmd

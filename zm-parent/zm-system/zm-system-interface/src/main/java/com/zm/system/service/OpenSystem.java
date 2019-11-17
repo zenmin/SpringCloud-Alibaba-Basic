@@ -54,4 +54,13 @@ public interface OpenSystem {
     @PostMapping(PREFIX + "/delete")
     ResponseEntity delete(@RequestParam("ids") String ids);
 
+    /**
+     * 测试消息发送
+     *
+     * @param msg
+     * @return
+     */
+    @PostMapping(PREFIX + "/send")
+    ResponseEntity send(@RequestParam("msg") String msg);
+
 }

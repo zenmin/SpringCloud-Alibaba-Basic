@@ -32,6 +32,10 @@ public class ItemsQo extends Pager {
 
     private Double price;
 
+    private String userName;
+
+    private String userId;
+
     public ItemsQo(Long num, Long size, Long id, String name) {
         super.setNum(num);
         super.setSize(size);

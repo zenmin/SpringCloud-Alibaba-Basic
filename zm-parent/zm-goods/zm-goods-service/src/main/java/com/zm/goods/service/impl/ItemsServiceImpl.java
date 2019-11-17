@@ -1,6 +1,8 @@
 package com.zm.goods.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.collect.Lists;
@@ -10,13 +12,13 @@ import com.zm.goods.mapper.ItemsMapper;
 import com.zm.goods.service.ItemsService;
 import com.zm.zmcommon.common.CommonException;
 import com.zm.zmcommon.common.Pager;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 
 /**
@@ -25,8 +27,8 @@ import java.util.Objects;
  * @Author ZengMin
  * @Date 2019-11-07 10:17:53
  */
-
 @Service
+@Slf4j
 public class ItemsServiceImpl implements ItemsService {
 
     @Autowired
@@ -74,5 +76,17 @@ public class ItemsServiceImpl implements ItemsService {
         return i > 0;
     }
 
+    @StreamListener("input")
+    public void goodsListener(String msg) {
+        log.info("接收到消息：{}", msg);
+        try {
+            JSONObject jsonObject = JSONObject.parseObject(msg);
+            String id = jsonObject.get("id").toString();
+            String name = jsonObject.get("name").toString();
+            // 处理数据  更新保存商品时用户的名字
+            itemsMapper.update(new Items(null, name), new UpdateWrapper<Items>().eq("userId", id));
+        } catch (Exception e) {
+        }
+    }
 
 }

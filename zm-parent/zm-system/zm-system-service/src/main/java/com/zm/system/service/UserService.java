@@ -55,4 +55,12 @@ public interface UserService {
      */
     boolean delete(String ids);
 
+    /**
+     * 批量删除
+     *
+     * @param msg
+     * @return
+     */
+    void send(String msg);
+
 }

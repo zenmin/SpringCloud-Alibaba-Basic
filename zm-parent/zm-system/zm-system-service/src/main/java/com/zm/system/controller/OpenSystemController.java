@@ -56,6 +56,8 @@ public class OpenSystemController implements OpenSystem {
 
     /**
      * 带ID更新 不带ID新增
+     * <p>
+     * 模拟修改用户名称 使用mq发送消息到商品服务 修改此人创建商品时的用户名称
      *
      * @param user
      * @return
@@ -74,6 +76,12 @@ public class OpenSystemController implements OpenSystem {
     @Override
     public ResponseEntity delete(String ids) {
         return ResponseEntity.success(userService.delete(ids));
+    }
+
+    @Override
+    public ResponseEntity send(String msg) {
+        userService.send(msg);
+        return ResponseEntity.success();
     }
 
 

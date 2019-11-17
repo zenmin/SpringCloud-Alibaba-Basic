@@ -37,9 +37,18 @@ public class Items extends AbstractEntityModel {
 
     private Double price;
 
+    private String userName;
+
+    private String userId;
+
     public static Items of(ItemsQo itemsVo) {
         Items items = new Items();
         BeanUtils.copyProperties(itemsVo, items);
         return items;
+    }
+
+    public Items(String userId, String userName) {
+        this.userName = userName;
+        this.userId = userId;
     }
 }
