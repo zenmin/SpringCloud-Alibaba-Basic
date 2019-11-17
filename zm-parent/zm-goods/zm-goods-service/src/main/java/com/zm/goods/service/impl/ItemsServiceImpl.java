@@ -15,6 +15,7 @@ import com.zm.zmcommon.common.Pager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.StreamListener;
+import org.springframework.cloud.stream.messaging.Sink;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -76,7 +77,7 @@ public class ItemsServiceImpl implements ItemsService {
         return i > 0;
     }
 
-    @StreamListener(value = "input", condition = "headers['TAGS'] == 'default-tag'")      // 过滤 只接受头信息中的TAGS == default-tag 的消息
+    @StreamListener(target = Sink.INPUT, condition = "headers['MY-HEADER'] == 'default-tag'")      // 过滤 只接受头信息中的TAGS == default-tag 的消息
     public void goodsListener(String msg) {
         log.info("接收到消息：{}", msg);
         try {

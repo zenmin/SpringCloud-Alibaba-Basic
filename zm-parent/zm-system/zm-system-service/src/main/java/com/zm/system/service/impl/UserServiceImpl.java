@@ -93,11 +93,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public void send(String msg) {
         try {
-            Map<String, Object> headers = new HashMap<>();
-            headers.put(MessageConst.PROPERTY_TAGS, "default-tag");
-            Message message = MessageBuilder.createMessage(msg, new MessageHeaders(headers));
+            // 此处header中的key不能使用TAGS 官方demo里面使用了  估计升级rocketmq版本后  TAGS是保留字段
+            Message message = MessageBuilder.withPayload(msg).setHeader("MY-HEADER", "default-tag").build();
             rocketMqProducer.output().send(message);
-            log.info("消息的发送完成：{}",msg);
+            log.info("消息的发送完成：{}", msg);
         } catch (Exception e) {
             e.printStackTrace();
         }
