@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.zm</groupId>
-	<artifactId>zm-geteway</artifactId>
+	<artifactId>zm-gateway</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>zm-geteway</name>
-	<description>Geteway</description>
+	<name>zm-gateway</name>
+	<description>Gateway</description>
 
 	<properties>
 		<java.version>1.8</java.version>
