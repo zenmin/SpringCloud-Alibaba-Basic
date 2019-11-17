@@ -76,7 +76,7 @@ public class ItemsServiceImpl implements ItemsService {
         return i > 0;
     }
 
-    @StreamListener("input")
+    @StreamListener(value = "input", condition = "headers['TAGS'] == 'default-tag'")      // 过滤 只接受头信息中的TAGS == default-tag 的消息
     public void goodsListener(String msg) {
         log.info("接收到消息：{}", msg);
         try {
