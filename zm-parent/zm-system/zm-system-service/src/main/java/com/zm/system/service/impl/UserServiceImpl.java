@@ -65,13 +65,12 @@ public class UserServiceImpl implements UserService {
     public UserQo save(UserQo user) {
         if (Objects.nonNull(user.getId())) {
             userMapper.updateById(User.of(user));
+            // 修改完成  发送消息到商品服务
+            if (Objects.nonNull(user.getId()) && StringUtils.isNotBlank(user.getName())) {
+                this.send(JSONUtils.toJSONString(ImmutableMap.of("id", user.getId(), "name", user.getName())));
+            }
         } else {
             userMapper.insert(User.of(user));
-        }
-
-        // 修改完成  发送消息到商品服务
-        if (Objects.nonNull(user.getId()) && StringUtils.isNotBlank(user.getName())) {
-            this.send(JSONUtils.toJSONString(ImmutableMap.of("id", user.getId(), "name", user.getName())));
         }
         return user;
     }

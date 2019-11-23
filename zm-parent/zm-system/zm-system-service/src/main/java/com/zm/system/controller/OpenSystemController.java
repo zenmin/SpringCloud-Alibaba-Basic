@@ -1,11 +1,17 @@
 package com.zm.system.controller;
 
 import com.zm.system.bean.UserQo;
+import com.zm.system.entity.User;
 import com.zm.system.service.OpenSystem;
 import com.zm.system.service.UserService;
+import com.zm.zmcommon.common.CommonException;
 import com.zm.zmcommon.common.ResponseEntity;
+import com.zm.zmcommon.common.constant.DefinedCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.math.BigDecimal;
+import java.util.Objects;
 
 
 /**
@@ -82,6 +88,25 @@ public class OpenSystemController implements OpenSystem {
     public ResponseEntity send(String msg) {
         userService.send(msg);
         return ResponseEntity.success();
+    }
+
+    @Override
+    public ResponseEntity decrAccount(UserQo user) {
+        // 查询用户账户余额
+        User one = userService.getOne(user.getId());
+        if (Objects.isNull(one)) {
+            return ResponseEntity.error("用户不存在!");
+        }
+        // 判断余额是否够支付
+        Double account = one.getAccount();
+        if (account < user.getAccount()) {
+            return ResponseEntity.error("用户余额不足!");
+        }
+
+        // 执行扣减
+        user.setAccount(new BigDecimal(account).subtract(new BigDecimal(user.getAccount())).doubleValue());
+        userService.save(user);
+        return ResponseEntity.success(true);
     }
 
 

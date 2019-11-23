@@ -1,11 +1,16 @@
 package com.zm.goods.controller;
 
 import com.zm.goods.bean.ItemsQo;
+import com.zm.goods.entity.Items;
 import com.zm.goods.service.OpenGoods;
 import com.zm.goods.service.ItemsService;
+import com.zm.zmcommon.common.CommonException;
 import com.zm.zmcommon.common.ResponseEntity;
+import com.zm.zmcommon.common.constant.DefinedCode;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.math.BigDecimal;
 
 
 /**
@@ -72,6 +77,36 @@ public class OpenGoodsController implements OpenGoods {
     @Override
     public ResponseEntity delete(String ids) {
         return ResponseEntity.success(itemsService.delete(ids));
+    }
+
+    /**
+     * 检查库存
+     *
+     * @param id
+     * @param num
+     * @return
+     */
+    @Override
+    public ResponseEntity checkStock(Long id, Integer num) {
+        Items one = itemsService.getOne(id);
+        Integer stock = one.getStock();
+        return ResponseEntity.success((stock > 0) && (stock > num));
+    }
+
+    @Override
+    public ResponseEntity decrStock(Long id, Integer num) {
+        Items one = itemsService.getOne(id);
+        Integer stock = one.getStock();
+        if ((stock <= 0) || (stock < num)) {
+            return ResponseEntity.error("库存不足！");
+        }
+        ItemsQo itemsQo = new ItemsQo();
+        itemsQo.setId(id);
+        itemsQo.setStock(stock - num);
+        itemsService.save(itemsQo);
+        // 计算价格
+        double p = new BigDecimal(one.getPrice()).multiply(new BigDecimal(num)).doubleValue();
+        return ResponseEntity.success(p);
     }
 
 }

@@ -24,7 +24,7 @@ public class ResponseEntity {
     private Object data;
 
     public static ResponseEntity success() {
-        return new ResponseEntity(DefinedCode.SUCCESS, "success", null);
+        return new ResponseEntity(DefinedCode.SUCCESS, "success", false);
     }
 
     public static ResponseEntity success(Object data) {
@@ -32,15 +32,15 @@ public class ResponseEntity {
     }
 
     public static ResponseEntity error(int code, String msg) {
-        return new ResponseEntity(code, msg, null);
+        return new ResponseEntity(code, msg, false);
     }
 
     public static ResponseEntity error() {
-        return new ResponseEntity(DefinedCode.ERROR, "失败", null);
+        return new ResponseEntity(DefinedCode.ERROR, "失败", false);
     }
 
     public static ResponseEntity error(String msg) {
-        return new ResponseEntity(DefinedCode.ERROR, msg, null);
+        return new ResponseEntity(DefinedCode.ERROR, msg, false);
     }
 
 

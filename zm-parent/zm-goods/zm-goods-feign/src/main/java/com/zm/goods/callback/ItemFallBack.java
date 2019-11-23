@@ -41,4 +41,15 @@ public class ItemFallBack implements ItemFeignService {
     public ResponseEntity delete(String ids) {
         return ResponseEntity.error("暂无数据");
     }
+
+    @Override
+    public ResponseEntity checkStock(Long id, Integer num) {
+        return ResponseEntity.error("库存不足");
+    }
+
+    @Override
+    public ResponseEntity decrStock(Long id, Integer num) {
+        return ResponseEntity.error("库存不足");
+    }
+
 }

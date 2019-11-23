@@ -28,5 +28,11 @@ public interface OpenGoods {
     @DeleteMapping(PREFIX + "/delete")
     ResponseEntity delete(@RequestParam(value = "ids") String ids);
 
+    @DeleteMapping(PREFIX + "/checkStock")
+    ResponseEntity checkStock(@RequestParam(value = "id") Long id, Integer num);
+
+    @DeleteMapping(PREFIX + "/decrStock")
+    ResponseEntity decrStock(@RequestParam(value = "id") Long id, Integer num);
+
 
 }

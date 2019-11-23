@@ -28,5 +28,6 @@ public class UserQo extends Pager {
 
     private Boolean sex;
 
+    private Double account;
 
 }

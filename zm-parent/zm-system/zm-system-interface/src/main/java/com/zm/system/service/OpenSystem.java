@@ -63,4 +63,13 @@ public interface OpenSystem {
     @PostMapping(PREFIX + "/send")
     ResponseEntity send(@RequestParam("msg") String msg);
 
+    /**
+     * 带ID更新 不带ID新增
+     *
+     * @param user
+     * @return
+     */
+    @PostMapping(PREFIX + "/decrAccount")
+    ResponseEntity decrAccount(@RequestBody UserQo user);
+
 }

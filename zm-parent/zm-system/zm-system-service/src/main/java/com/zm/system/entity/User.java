@@ -33,6 +33,8 @@ public class User extends AbstractEntityModel {
 
     private Boolean sex;
 
+    private Double account;
+
     public static User of(UserQo userVo) {
         User user = new User();
         BeanUtils.copyProperties(userVo, user);
