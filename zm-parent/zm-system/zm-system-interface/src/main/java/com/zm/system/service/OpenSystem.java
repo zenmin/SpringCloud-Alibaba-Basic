@@ -2,6 +2,7 @@ package com.zm.system.service;
 
 import com.zm.system.bean.UserQo;
 import com.zm.zmcommon.common.ResponseEntity;
+import io.seata.spring.annotation.GlobalTransactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -70,6 +71,7 @@ public interface OpenSystem {
      * @return
      */
     @PostMapping(PREFIX + "/decrAccount")
+    @GlobalTransactional(timeoutMills = 3000, name = "SUBMIT_ORDER")
     ResponseEntity decrAccount(@RequestBody UserQo user);
 
 }

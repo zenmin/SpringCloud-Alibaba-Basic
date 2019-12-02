@@ -2,6 +2,7 @@ package com.zm.goods.service;
 
 import com.zm.goods.bean.ItemsQo;
 import com.zm.zmcommon.common.ResponseEntity;
+import io.seata.spring.annotation.GlobalTransactional;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -25,14 +26,15 @@ public interface OpenGoods {
     @PostMapping(PREFIX + "/save")
     ResponseEntity saveOrUpdate(@RequestBody ItemsQo items);
 
-    @DeleteMapping(PREFIX + "/delete")
+    @PostMapping(PREFIX + "/delete")
     ResponseEntity delete(@RequestParam(value = "ids") String ids);
 
-    @DeleteMapping(PREFIX + "/checkStock")
-    ResponseEntity checkStock(@RequestParam(value = "id") Long id, Integer num);
+    @PostMapping(PREFIX + "/checkStock")
+    ResponseEntity checkStock(@RequestParam(value = "id") Long id, @RequestParam(value = "num") Integer num);
 
-    @DeleteMapping(PREFIX + "/decrStock")
-    ResponseEntity decrStock(@RequestParam(value = "id") Long id, Integer num);
+    @PostMapping(PREFIX + "/decrStock")
+    @GlobalTransactional(timeoutMills = 3000, name = "SUBMIT_ORDER")
+    ResponseEntity decrStock(@RequestParam(value = "id") Long id, @RequestParam(value = "num") Integer num);
 
 
 }
