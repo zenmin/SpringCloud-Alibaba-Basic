@@ -7,6 +7,8 @@ import com.zm.goods.service.ItemsService;
 import com.zm.zmcommon.common.CommonException;
 import com.zm.zmcommon.common.ResponseEntity;
 import com.zm.zmcommon.common.constant.DefinedCode;
+import io.seata.core.context.RootContext;
+import io.seata.spring.annotation.GlobalTransactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -95,10 +97,11 @@ public class OpenGoodsController implements OpenGoods {
 
     @Override
     public ResponseEntity decrStock(Long id, Integer num) {
+        System.out.println("xid:" + RootContext.getXID());
         Items one = itemsService.getOne(id);
         Integer stock = one.getStock();
         if ((stock <= 0) || (stock < num)) {
-            return ResponseEntity.error("库存不足！");
+            throw new CommonException(DefinedCode.ERROR, "库存不足！");
         }
         ItemsQo itemsQo = new ItemsQo();
         itemsQo.setId(id);

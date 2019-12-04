@@ -4,12 +4,16 @@ import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
+import io.seata.rm.datasource.DataSourceProxy;
+import io.seata.spring.annotation.GlobalTransactionScanner;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 import javax.sql.DataSource;
 import java.util.Arrays;
@@ -35,10 +39,25 @@ public class DataSourceConfig {
      */
     private static final String FILTER_PATTERN = "/api/*,/open/*";
 
+    @Value("${spring.application.name}")
+    String applicationId;
+
     @Bean
     @ConfigurationProperties(prefix = "spring.datasource.druid")
     public DataSource druidDataSource() {
         return new DruidDataSource();
+    }
+
+    /**
+     * 配置seata接管本地事务
+     *
+     * @param druidDataSource
+     * @return
+     */
+    @Primary    //@Primary标识必须配置在代码数据源上，否则本地事务失效
+    @Bean("dataSourceProxy")
+    public DataSourceProxy dataSourceProxy(DataSource druidDataSource) {
+        return new DataSourceProxy(druidDataSource);
     }
 
     /**

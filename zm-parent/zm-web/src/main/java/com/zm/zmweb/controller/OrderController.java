@@ -6,6 +6,7 @@ import com.zm.system.bean.UserQo;
 import com.zm.system.service.UserFeignService;
 import com.zm.zmcommon.common.CommonException;
 import com.zm.zmcommon.common.ResponseEntity;
+import io.seata.spring.annotation.GlobalTransactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +29,7 @@ public class OrderController {
 
 
     @PostMapping("/submit")
+    @GlobalTransactional(timeoutMills = 3000, name = "SUBMIT_ORDER")
     public ResponseEntity submitOrder(Long uid, Long orderId, Integer num) {
         // 模拟扣减库存
         ResponseEntity item = itemFeignService.decrStock(orderId, num);

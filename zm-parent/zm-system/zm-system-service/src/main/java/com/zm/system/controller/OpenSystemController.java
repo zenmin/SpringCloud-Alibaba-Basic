@@ -7,6 +7,8 @@ import com.zm.system.service.UserService;
 import com.zm.zmcommon.common.CommonException;
 import com.zm.zmcommon.common.ResponseEntity;
 import com.zm.zmcommon.common.constant.DefinedCode;
+import io.seata.core.context.RootContext;
+import io.seata.spring.annotation.GlobalTransactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -92,15 +94,20 @@ public class OpenSystemController implements OpenSystem {
 
     @Override
     public ResponseEntity decrAccount(UserQo user) {
+        System.out.println("xid:" + RootContext.getXID());
         // 查询用户账户余额
         User one = userService.getOne(user.getId());
         if (Objects.isNull(one)) {
-            return ResponseEntity.error("用户不存在!");
+            throw new CommonException(DefinedCode.ERROR, "用户不存在!");
         }
         // 判断余额是否够支付
         Double account = one.getAccount();
-        if (account < user.getAccount()) {
-            return ResponseEntity.error("用户余额不足!");
+        if (Objects.nonNull(account)) {
+            if (account < user.getAccount()) {
+                throw new CommonException(DefinedCode.ERROR, "用户余额不足!");
+            }
+        } else {
+            throw new CommonException(DefinedCode.ERROR, "用户余额不足!");
         }
 
         // 执行扣减

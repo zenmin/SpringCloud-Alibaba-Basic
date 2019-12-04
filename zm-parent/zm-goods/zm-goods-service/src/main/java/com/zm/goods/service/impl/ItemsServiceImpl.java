@@ -12,6 +12,7 @@ import com.zm.goods.mapper.ItemsMapper;
 import com.zm.goods.service.ItemsService;
 import com.zm.zmcommon.common.CommonException;
 import com.zm.zmcommon.common.Pager;
+import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.StreamListener;
@@ -53,7 +54,7 @@ public class ItemsServiceImpl implements ItemsService {
     }
 
     @Override
-    @Transactional(rollbackFor = CommonException.class)
+    @GlobalTransactional(timeoutMills = 3000, name = "SUBMIT_ORDER")
     public ItemsQo save(ItemsQo items) {
         if (Objects.nonNull(items.getId())) {
             itemsMapper.updateById(Items.of(items));
