@@ -40,7 +40,6 @@
             <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
         </dependency>
 
-
     </dependencies>
 
 </project>

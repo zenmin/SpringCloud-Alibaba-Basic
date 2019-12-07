@@ -33,6 +33,7 @@
         <fastjson.version>1.2.56</fastjson.version>
         <mybatis.plus.boot.version>3.2.0</mybatis.plus.boot.version>
         <swagger.starter.version>1.8.0.RELEASE</swagger.starter.version>
+        <nacos.config.version>0.9.0.RELEASE</nacos.config.version>
     </properties>
 
     <dependencies>
@@ -143,6 +144,9 @@
                 <artifactId>swagger-spring-boot-starter</artifactId>
                 <version>${swagger.starter.version}</version>
             </dependency>
+
+
+
         </dependencies>
     </dependencyManagement>
 

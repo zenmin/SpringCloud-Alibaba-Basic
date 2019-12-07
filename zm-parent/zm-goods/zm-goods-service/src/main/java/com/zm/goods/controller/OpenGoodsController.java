@@ -9,6 +9,8 @@ import com.zm.zmcommon.common.ResponseEntity;
 import com.zm.zmcommon.common.constant.DefinedCode;
 import io.seata.core.context.RootContext;
 import io.seata.spring.annotation.GlobalTransactional;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -21,13 +23,16 @@ import java.math.BigDecimal;
  * @Author ZengMin
  * @Date 2019-11-07 10:17:53
  */
-
+@RefreshScope   // 动态刷新配置  在哪个地方读取了配置文件配置  就在哪个类上面加
 @RestController
 public class OpenGoodsController implements OpenGoods {
 
 
     @Autowired
     ItemsService itemsService;
+
+    @Value("${server.port}")
+    String port;
 
     /**
      * 根据id查询一条数据
@@ -110,6 +115,11 @@ public class OpenGoodsController implements OpenGoods {
         // 计算价格
         double p = new BigDecimal(one.getPrice()).multiply(new BigDecimal(num)).doubleValue();
         return ResponseEntity.success(p);
+    }
+
+    @GetMapping("/testConfig")
+    public String testConfig() {
+        return port;
     }
 
 }
