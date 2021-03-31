@@ -29,7 +29,7 @@
         <openfeign.version>2.0.2.RELEASE</openfeign.version>
         <mysql.connector.version>5.1.47</mysql.connector.version>
         <druid.version>1.1.14</druid.version>
-        <guava.version>26.0-jre</guava.version>
+        <guava.version>29.0-jre</guava.version>
         <fastjson.version>1.2.56</fastjson.version>
         <mybatis.plus.boot.version>3.2.0</mybatis.plus.boot.version>
         <swagger.starter.version>1.8.0.RELEASE</swagger.starter.version>
