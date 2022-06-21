@@ -27,7 +27,7 @@
         <java.version>1.8</java.version>
         <com.alibaba.cloud.version>2.1.1.RELEASE</com.alibaba.cloud.version>
         <openfeign.version>2.0.2.RELEASE</openfeign.version>
-        <mysql.connector.version>5.1.47</mysql.connector.version>
+        <mysql.connector.version>8.0.28</mysql.connector.version>
         <druid.version>1.1.14</druid.version>
         <guava.version>26.0-jre</guava.version>
         <fastjson.version>1.2.56</fastjson.version>
